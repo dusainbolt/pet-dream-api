@@ -1,7 +1,7 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { Account } from 'src/entities/account.entity';
-import { RemindData } from 'src/gatewaies/interfaces/messages.interface';
+// import { RemindData } from 'src/gatewaies/interfaces/messages.interface';
 
 @Injectable()
 export class MailService {
@@ -45,18 +45,18 @@ export class MailService {
     }
   }
 
-  async remindUserReply(remindData: RemindData) {
-    try {
-      await this.mailerService.sendMail({
-        to: remindData.email,
-        subject: 'Yêu cầu thay đổi mật khẩu',
-        template: 'remind_user_reply', // `.hbs` extension is appended automatically
-        context: {
-          fullName: remindData.fullName,
-        },
-      });
-    } catch (e) {
-      throw e;
-    }
-  }
+  // async remindUserReply(remindData: RemindData) {
+  //   try {
+  //     await this.mailerService.sendMail({
+  //       to: remindData.email,
+  //       subject: 'Yêu cầu thay đổi mật khẩu',
+  //       template: 'remind_user_reply', // `.hbs` extension is appended automatically
+  //       context: {
+  //         fullName: remindData.fullName,
+  //       },
+  //     });
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
 }

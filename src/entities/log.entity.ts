@@ -4,18 +4,21 @@ import { Column, Entity } from 'typeorm';
 
 @Entity(ENTITY_NAME.LOG)
 export class Log extends AbstractEntity {
-  @Column({ type: 'varchar', name: 'request_path' })
+  @Column({ name: 'request_path', type: 'varchar' })
   requestPath: string;
 
-  @Column({ type: 'int', name: 'account_id', nullable: true })
+  @Column({ name: 'account_id', type: 'int', nullable: true })
   accountId: number;
 
-  @Column({ type: 'text', name: 'input', nullable: true })
+  @Column({ name: 'input', type: 'text', nullable: true })
   input: string;
 
-  @Column({ type: 'text', name: 'error', nullable: true })
+  @Column({ name: 'error', type: 'text', nullable: true })
   error: string;
 
-  @Column({ type: 'enum', enum: Object.values(ErrorType) })
+  @Column({ name: 'status', type: 'smallint', default: null })
+  status: number;
+
+  @Column({ name: 'type', type: 'enum', enum: Object.values(ErrorType) })
   type: ErrorType;
 }

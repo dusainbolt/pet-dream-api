@@ -2,26 +2,27 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountModule } from './api/account/account.module';
 import { AuthModule } from './api/auth/auth.module';
+import { PetModule } from './api/pet/pet.module';
 import { AppController } from './app.controller';
 import { Log } from './entities/log.entity';
-import { SharedModule } from './shared/shared.module';
-import { TopicModule } from './api/topic/topic.module';
 import { SeedingModule } from './seeding/seeding.module';
-import { MessageModule } from './api/message/message.module';
-import { GatewayModule } from './gatewaies/gateway.module';
+import { SharedModule } from './shared/shared.module';
+import { PetColorModule } from './api/pet-color/pet-color.module';
+import { PetSpecialTypeModule } from './api/pet-special-type/pet-special-type.module';
 
 @Module({
   imports: [
     // Service module
     SharedModule,
     SeedingModule,
-    GatewayModule,
+    // GatewayModule,
     // Entity module
     TypeOrmModule.forFeature([Log]),
     AccountModule,
     AuthModule,
-    TopicModule,
-    MessageModule,
+    PetModule,
+    PetColorModule,
+    PetSpecialTypeModule,
   ],
   controllers: [AppController],
 })

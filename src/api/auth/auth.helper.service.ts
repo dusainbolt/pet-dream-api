@@ -40,15 +40,15 @@ export class AuthHelper {
     await this.mailService.sendOtpForgotPassword(account, otpRegister);
   };
 
-  verifyOtpRegister = async (account: Account, otp: string) => {
-    await this.verifyOtp(Generate.keyRegister(account.id, account.username), otp);
+  verifyOtpRegisterMsg = async (account: Account, otp: string) => {
+    await this.verifyOtpMsg(Generate.keyRegister(account.id, account.username), otp);
   };
 
-  verifyOtpForgotPassword = async (account: Account, otp: string) => {
-    await this.verifyOtp(Generate.keyForgotPassword(account.id, account.username), otp);
+  verifyOtpForgotPasswordMsg = async (account: Account, otp: string) => {
+    await this.verifyOtpMsg(Generate.keyForgotPassword(account.id, account.username), otp);
   };
 
-  verifyOtp = async (key, otp) => {
+  verifyOtpMsg = async (key, otp) => {
     const otpRedis = await this.cacheManager.get(key);
     if (!otpRedis) {
       return new AppException(ERROR_CODE.AUTH_NOT_FOUND_OTP);
@@ -65,12 +65,12 @@ export class AuthHelper {
 
   destroyJWT = () => {};
 
-  isMatchPassword = async (account: Account, password) => {
-    const isMatchPassword = await Security.compareBcrypt(password, account.password);
-    if (!isMatchPassword) throw new AppException(ERROR_CODE.AUTH_PASSWORD_INCORRECT);
+  isMatchPasswordMsg = async (account: Account, password) => {
+    const isMatchPasswordMsg = await Security.compareBcrypt(password, account.password);
+    if (!isMatchPasswordMsg) throw new AppException(ERROR_CODE.AUTH_PASSWORD_INCORRECT);
   };
 
-  checkUserStatusLogin = async (account: Account) => {
+  checkUserStatusLoginMsg = async (account: Account) => {
     // if sign but account not verify
     if (account.status === AccountStatus.NOT_VERIFY) {
       await this.generateOtpConfirmAndSendMail(account);
@@ -82,7 +82,7 @@ export class AuthHelper {
     }
   };
 
-  isExistEmailOrUsername = (account: Account) => {
+  isExistEmailOrUsernameMsg = (account: Account) => {
     if (!!account?.email || !!account?.username) {
       throw new AppException(ERROR_CODE.ACCOUNT_USERNAME_EMAIL_ALREADY_REGISTER);
     }

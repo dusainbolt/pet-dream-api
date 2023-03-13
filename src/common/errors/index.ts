@@ -73,15 +73,10 @@ export const ERROR: Record<ERROR_CODE, AppError> = {
     status: HttpStatus.OK,
   },
 
-  // TOPIC 2xxx
-  [ERROR_CODE.TOPIC_TITLE_EXIST_BY_ACCOUNT]: {
+  // PET 2xxx
+  [ERROR_CODE.PET_NAME_EXIST_BY_ACCOUNT]: {
     code: '2000',
-    message: `Topic title is exist by account`,
-    status: HttpStatus.OK,
-  },
-  [ERROR_CODE.TOPIC_DO_NOT_PERMISSION]: {
-    code: '2000',
-    message: `User not permission to view message of topic`,
+    message: `Pet name is exist by account`,
     status: HttpStatus.OK,
   },
 };

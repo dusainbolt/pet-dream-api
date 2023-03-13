@@ -2,16 +2,15 @@ import {
   ArgumentsHost,
   BadRequestException,
   Catch,
-  ExceptionFilter,
   HttpException,
   HttpServer,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Response } from 'express';
 import { getReasonPhrase } from 'http-status-codes';
 import { isArray } from 'lodash';
-import { Logger } from 'nestjs-pino';
 import { ERROR } from 'src/common/errors';
 import { ErrorType, ERROR_CODE, RequestUser } from 'src/common/interfaces';
 import { Log } from 'src/entities/log.entity';
@@ -28,7 +27,8 @@ export class AppException extends HttpException {
 
 @Catch()
 export class AppExceptionFilter extends BaseExceptionFilter {
-  constructor(private readonly _logger: Logger, applicationRef?: HttpServer) {
+  private readonly _logger = new Logger(AppExceptionFilter.name);
+  constructor(applicationRef?: HttpServer) {
     super(applicationRef);
   }
 
@@ -37,6 +37,8 @@ export class AppExceptionFilter extends BaseExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<RequestUser>();
 
+    const status = exception.getStatus ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+
     const log = new Log();
     if (request.body.password) delete request.body.password;
     log.requestPath = request.url;
@@ -44,9 +46,9 @@ export class AppExceptionFilter extends BaseExceptionFilter {
     log.input = JSON.stringify({ query: request.query, body: request.body });
     log.error = JSON.stringify(exception);
     log.type = exception instanceof AppException ? ErrorType.APP_ERROR : ErrorType.SERVER_ERROR;
+    log.status = status;
     log.save();
-    console.log('exception exception', exception);
-    const status = exception.getStatus ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+
     let message = '';
     if (exception?.getResponse) {
       message =

@@ -25,12 +25,15 @@ export const PAGINATION = {
 };
 
 export const ENTITY_NAME = {
+  // ONLY CONTROLLER
   AUTH: `auth`,
-  ACCOUNT: `account`,
-  WALLET: `wallet`,
-  LOG: `log`,
-  topic: `topic`,
-  message: `message`,
+
+  // ENTITY DB
+  ACCOUNT: `accounts`,
+  LOG: `logs`,
+  PET: `pets`,
+  PET_COLOR: `pet-colors`,
+  PET_SPECIAL_TYPE: `pet-special-types`,
 };
 
 export const DATE_FORMAT = {

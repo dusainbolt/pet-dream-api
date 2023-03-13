@@ -1,18 +1,18 @@
 {
-  "name": "du-talk",
+  "name": "pet-dream",
   "version": "1.0.0",
-  "description": "APIs document for DuTalk",
+  "description": "APIs document for PetDream",
   "main": "src/main.ts",
-  "author": "DuTalk",
+  "author": "PetDream",
   "private": true,
   "license": "ISC",
-  "homepage": "https://github.com/https://github.com/DuTalk/APIServices_Onchain#readme",
+  "homepage": "https://github.com/https://github.com/PetDream/APIServices_Onchain#readme",
   "bugs": {
-    "url": "https://github.com/https://github.com/DuTalk/APIServices_Onchain/issues"
+    "url": "https://github.com/https://github.com/PetDream/APIServices_Onchain/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/https://github.com/DuTalk/APIServices_Onchain.git"
+    "url": "git+https://github.com/https://github.com/PetDream/APIServices_Onchain.git"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -48,7 +48,6 @@
     "class-validator": "^0.13.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
-    "ethers": "^5.7.2",
     "helmet": "^6.0.0",
     "http-status-codes": "^2.2.0",
     "nestjs-pino": "^3.1.2",

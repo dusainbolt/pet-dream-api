@@ -18,12 +18,12 @@ export class AuthService {
   async signUp(body: AuthSignUpDto) {
     const { email, username, fullName } = body;
     // check exist
-    const findAccount = await this.accountHelper.findAccountWhere([{ email }, { username }]);
-    this.authHelper.isExistEmailOrUsername(findAccount);
+    const findAccount = await this.accountHelper.findOne({ where: [{ email }, { username }] });
+    this.authHelper.isExistEmailOrUsernameMsg(findAccount);
     // hash password
     const password = await Security.hashBcrypt(body.password);
     // create account, send mail and return account
-    const account = await this.accountHelper.insertAccount({ email, username, password, fullName });
+    const account = await this.accountHelper.store({ email, username, password, fullName });
     await this.authHelper.generateOtpConfirmAndSendMail(account);
     return account;
   }
@@ -32,11 +32,11 @@ export class AuthService {
     const { credential } = body;
     const account = await this.accountHelper.getAccByCredential(credential);
     // check account
-    this.accountHelper.isExistAccount(account);
+    this.accountHelper.isExistAccountMsg(account);
     // check password
-    await this.authHelper.isMatchPassword(account, body.password);
+    await this.authHelper.isMatchPasswordMsg(account, body.password);
     // check user status
-    await this.authHelper.checkUserStatusLogin(account);
+    await this.authHelper.checkUserStatusLoginMsg(account);
     // return jwt
     return { token: this.authHelper.signJWT(account) };
   }
@@ -45,10 +45,10 @@ export class AuthService {
     const { credential } = body;
     const account = await this.accountHelper.getAccByCredential(credential);
     // check account
-    this.accountHelper.isExistAccount(account);
-    this.accountHelper.isAccountNotVerify(account);
+    this.accountHelper.isExistAccountMsg(account);
+    this.accountHelper.isAccountNotVerifyMsg(account);
     // check otp
-    await this.authHelper.verifyOtpRegister(account, body.otp);
+    await this.authHelper.verifyOtpRegisterMsg(account, body.otp);
     // update user and return jwt
     account.status = AccountStatus.ACTIVE;
     await account.save();
@@ -59,7 +59,7 @@ export class AuthService {
     const { credential } = body;
     const account = await this.accountHelper.getAccByCredential(credential);
     // check account
-    this.accountHelper.isExistAccount(account);
+    this.accountHelper.isExistAccountMsg(account);
     await this.authHelper.generateOtpForgotPasswordAndSendMail(account);
     return { result: true };
   }
@@ -68,9 +68,9 @@ export class AuthService {
     const { credential } = body;
     const account = await this.accountHelper.getAccByCredential(credential);
     // check account
-    this.accountHelper.isExistAccount(account);
+    this.accountHelper.isExistAccountMsg(account);
     // check otp
-    await this.authHelper.verifyOtpForgotPassword(account, body.otp);
+    await this.authHelper.verifyOtpForgotPasswordMsg(account, body.otp);
     await this.authHelper.updatedAccountResetPassword(account, body.password);
     return { result: true };
   }

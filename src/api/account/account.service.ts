@@ -6,6 +6,6 @@ export class AccountService {
   constructor(private readonly accountHelper: AccountHelper) {}
 
   async getAccountById(id: number) {
-    return await this.accountHelper.findAccount({ id });
+    return await this.accountHelper.findOneBy({ id });
   }
 }

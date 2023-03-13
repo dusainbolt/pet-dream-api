@@ -1,6 +1,6 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
+// import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { AppExceptionFilter, TransformInterceptor } from './middleware';
@@ -9,27 +9,29 @@ import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { TrimPipe } from './common/pipe/TrimPipe';
-import { AuthenticatedSocketIoAdapter } from './gatewaies/authenticated-socket.adapter';
+// import { AuthenticatedSocketIoAdapter } from './gatewaies/authenticated-socket.adapter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
-  const logger = app.get(Logger);
+  // const logger = app.get(Logger);
   const version = config.get<string>('server.version');
 
   const { httpAdapter } = app.get(HttpAdapterHost);
 
   app.setGlobalPrefix(`/${version}`);
   app.use(cookieParser());
-  app.use(helmet());
+  // app.use(helmet());
   app.use(compression());
-  app.useLogger(logger);
+  // app.useLogger(logger);
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }), new TrimPipe());
-  app.useGlobalFilters(new AppExceptionFilter(logger, httpAdapter));
-  app.useGlobalInterceptors(new LoggerErrorInterceptor(), new TransformInterceptor());
-  app.useWebSocketAdapter(new AuthenticatedSocketIoAdapter(app));
+  app.useGlobalFilters(new AppExceptionFilter(httpAdapter));
+  app.useGlobalInterceptors(new TransformInterceptor());
 
-  logger.log(`Application running at ${process.env.NODE_ENV} mode`);
+  // Auth for gateway
+  // app.useWebSocketAdapter(new AuthenticatedSocketIoAdapter(app));
+
+  console.log(`Application running at ${process.env.NODE_ENV} mode`);
 
   const port = config.get<number>('server.port');
   app.enableCors({
@@ -46,6 +48,6 @@ async function bootstrap() {
   }
 
   await app.listen(port);
-  logger.log(`Application listen on port ${port}`);
+  console.log(`Application listen on port ${port}`);
 }
 bootstrap();

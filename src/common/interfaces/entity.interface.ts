@@ -1,5 +1,6 @@
-import { BaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-
+import { BaseEntity, CreateDateColumn, DeepPartial, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { EntityId } from 'typeorm/repository/EntityId';
+import { DeleteResult } from 'typeorm';
 export abstract class AbstractEntity extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;

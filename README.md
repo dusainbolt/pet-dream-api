@@ -59,7 +59,7 @@ $ npm run test:cov
 ```
 
 ```cli make module (for develop)
-nest g module api/setting && nest g service api/setting && nest g controller api/setting
+nest g module api/pet-tail && nest g service api/pet-tail && nest g controller api/pet-tail
 ```
 
 ## Support
