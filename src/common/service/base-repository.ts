@@ -1,4 +1,4 @@
-import { DeepPartial, DeleteResult, FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
+import { DeepPartial, DeleteResult, FindManyOptions, FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { EntityId } from 'typeorm/repository/EntityId';
 
 export class BaseRepository<T> {
@@ -39,5 +39,9 @@ export class BaseRepository<T> {
 
   delete(id: EntityId): Promise<DeleteResult> {
     return this._repo.delete(id);
+  }
+
+  find(options?: FindManyOptions<T>): Promise<T[]> {
+    return this._repo.find(options);
   }
 }

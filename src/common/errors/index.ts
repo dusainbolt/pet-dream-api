@@ -79,4 +79,26 @@ export const ERROR: Record<ERROR_CODE, AppError> = {
     message: `Pet name is exist by account`,
     status: HttpStatus.OK,
   },
+  [ERROR_CODE.PET_NOT_FOUND]: {
+    code: '2001',
+    message: `Pet not found`,
+    status: HttpStatus.OK,
+  },
+  [ERROR_CODE.PET_WRONG_ACCOUNT]: {
+    code: '2002',
+    message: `Pet wrong account`,
+    status: HttpStatus.OK,
+  },
+  // PET_COLOR 3xxx
+  [ERROR_CODE.PET_COLOR_NOT_FOUND]: {
+    code: '3000',
+    message: `Pet color not found`,
+    status: HttpStatus.OK,
+  },
+  // PET_SPECIAL_TYPE 4xxx
+  [ERROR_CODE.PET_SPECIAL_TYPE_NOT_FOUND]: {
+    code: '4000',
+    message: `Pet special type not found`,
+    status: HttpStatus.OK,
+  },
 };

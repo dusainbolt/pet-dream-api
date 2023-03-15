@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ERROR_CODE } from 'src/common/interfaces';
-import { BaseRepository } from 'src/common/service/base-repositoty';
+import { BaseRepository } from 'src/common/service/base-repository';
 import { Account } from 'src/entities/account.entity';
 import { AppException } from 'src/middleware';
 import { Repository } from 'typeorm';

@@ -19,7 +19,7 @@ export const getDefaultQuery = <T>({
   limit,
   ...options
 }: PaginateOptionsDto): IPaginationRequest<T> => {
-  let sortDefault: any = { updatedOn: QuerySort.DESC };
+  let sortDefault: any = { createdOn: QuerySort.DESC };
   if (sort !== undefined && sort !== '') {
     const [sortBy, orderBy]: string[] = sort.split('.');
     sortDefault = { [sortBy]: orderBy };
