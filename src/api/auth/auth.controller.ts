@@ -19,36 +19,36 @@ export class AuthController {
   @Post('/sign-up')
   @ApiOperation({ summary: 'Register new account' })
   async signUp(@Body() body: AuthSignUpDto) {
-    return this.authService.signUp(body);
+    return await this.authService.signUp(body);
   }
 
   @Post('/sign-in')
   @ApiOperation({ summary: 'Login to system' })
   async signIn(@Body() body: AuthSignInDto) {
-    return this.authService.signIn(body);
+    return await this.authService.signIn(body);
   }
 
   @Post('/verify-account')
   @ApiOperation({ summary: 'Verify otp account after register' })
   async verifyAccount(@Body() body: AuthVerifyAccountDto) {
-    return this.authService.verifyAccount(body);
+    return await this.authService.verifyAccount(body);
   }
 
   @Post('/forgot-password')
   @ApiOperation({ summary: 'Request forgot password that create otp and new password flow' })
   async forgotPassword(@Body() body: AuthForgotPasswordDto) {
-    return this.authService.forgotPassword(body);
+    return await this.authService.forgotPassword(body);
   }
 
   @Post('/reset-password-otp')
   @ApiOperation({ summary: 'Request verify otp and reset password' })
   async resetPassword(@Body() body: AuthResetPassword) {
-    return this.authService.resetPassword(body);
+    return await this.authService.resetPassword(body);
   }
 
   @Post('/sign-out')
   @ApiOperation({ summary: 'Logout to system' })
   async signOut(@Body() body: AuthSignOutDto) {
-    return this.authService.signOut(body);
+    return await this.authService.signOut(body);
   }
 }

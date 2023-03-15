@@ -1,9 +1,9 @@
-export class PetService {}
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseRepository } from 'src/common/service/base-repository';
 import { Pet } from 'src/entities/pet.entity';
 import { Repository } from 'typeorm';
+export class PetService {}
 
 @Injectable()
 export class PetHelper extends BaseRepository<Pet> {

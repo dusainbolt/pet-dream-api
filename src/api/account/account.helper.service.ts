@@ -9,12 +9,12 @@ import { AccountStatus } from './account.interface';
 
 @Injectable()
 export class AccountHelper extends BaseRepository<Account> {
-  constructor(@InjectRepository(Account) private accountRepo: Repository<Account>) {
+  constructor(@InjectRepository(Account) private readonly accountRepo: Repository<Account>) {
     super(accountRepo);
   }
 
   async getAccByCredential(credential: string): Promise<Account> {
-    return this.findOne({ where: [{ email: credential }, { username: credential }] });
+    return await this.findOne({ where: [{ email: credential }, { username: credential }] });
   }
 
   isExistAccountMsg = (account: Account) => {

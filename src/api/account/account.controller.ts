@@ -13,8 +13,8 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Get('/')
-  @ApiOperation({ summary: 'Get account info' })
-  async getAccountInfo(@Req() req: RequestUser) {
+  @ApiOperation({ summary: 'Get my info' })
+  async getMyInfo(@Req() req: RequestUser) {
     return { account: req.user };
   }
 }
@@ -27,6 +27,6 @@ export class AccountAdminController {
   @Get('/:accountId')
   @ApiOperation({ summary: 'Get account info by id' })
   async getAccountInfo(@Param('accountId') accountId: string) {
-    return this.accountService.getAccountById(parseInt(accountId));
+    return await this.accountService.getAccountById(parseInt(accountId));
   }
 }

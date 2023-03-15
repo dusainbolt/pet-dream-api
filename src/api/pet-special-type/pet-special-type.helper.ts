@@ -1,4 +1,3 @@
-export class PetService {}
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseRepository } from 'src/common/service/base-repository';

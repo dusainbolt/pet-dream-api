@@ -1,6 +1,5 @@
 import { IsSwaggerEnum, IsSwaggerNumber, IsSwaggerString } from 'src/common/decorators';
 import { PetEar, PetEye, PetGender, PetHair, PetTail } from 'src/entities/pet.entity';
-import { Column } from 'typeorm';
 
 export class PetCreateDto {
   @IsSwaggerString({ default: 'Lê Zăn Đạt' })

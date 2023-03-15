@@ -1,6 +1,6 @@
 const commonConstant = {
   IMAGE_FORMAT_WEBP: 'webp',
-  NUMBER_MAX_LENGTH: 2147483647, //POSTGRESQL INT
+  NUMBER_MAX_LENGTH: 2147483647, // POSTGRESQL INT
   VARCHAR_MAX_LENGTH: 255,
   ARRAY_MIN_SIZE: 1,
   ARRAY_MAX_SIZE: 5,
@@ -26,14 +26,14 @@ export const PAGINATION = {
 
 export const ENTITY_NAME = {
   // ONLY CONTROLLER
-  AUTH: `auth`,
+  AUTH: 'auth',
 
   // ENTITY DB
-  ACCOUNT: `accounts`,
-  LOG: `logs`,
-  PET: `pets`,
-  PET_COLOR: `pet-colors`,
-  PET_SPECIAL_TYPE: `pet-special-types`,
+  ACCOUNT: 'accounts',
+  LOG: 'logs',
+  PET: 'pets',
+  PET_COLOR: 'pet-colors',
+  PET_SPECIAL_TYPE: 'pet-special-types',
 };
 
 export const DATE_FORMAT = {
