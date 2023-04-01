@@ -12,7 +12,7 @@ import { AccountService } from './account.service';
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
-  @Get('/')
+  @Get('/my-info')
   @ApiOperation({ summary: 'Get my info' })
   async getMyInfo(@Req() req: RequestUser) {
     return { account: req.user };

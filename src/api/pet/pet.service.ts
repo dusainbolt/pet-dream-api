@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { UPLOAD } from 'src/common/constant';
 import { ERROR_CODE } from 'src/common/interfaces';
 import { getDefaultQuery, PaginateOptionsDto } from 'src/common/pagination';
+import { FileUtils } from 'src/common/utils/file.utils';
 import { Account } from 'src/entities/account.entity';
 import { Pet } from 'src/entities/pet.entity';
 import { AppException } from 'src/middleware';
@@ -15,7 +17,7 @@ export class PetService {
   constructor(
     private readonly PetHelper: PetHelper,
     private readonly petColorHelper: PetColorHelper,
-    private readonly petSpecialTypeHelper: PetSpecialTypeHelper,
+    private readonly petSpecialTypeHelper: PetSpecialTypeHelper
   ) {}
 
   public createPet = async (acc: Account, data: PetCreateDto) => {
@@ -24,11 +26,11 @@ export class PetService {
       throw new AppException(ERROR_CODE.PET_NAME_EXIST_BY_ACCOUNT);
     }
     const newPetData: DeepPartial<Pet> = {
-      birthday: new Date(data.birthday),
+      birthday: new Date(data.birthday * 1000),
       name: data.name,
-      nickName: data.nickName,
+      nickname: data.nickname,
       gender: data.gender,
-      accountId: acc.id,
+      accountId: acc.id
     };
     const pet = await this.PetHelper.store(newPetData);
     return pet;
@@ -59,9 +61,9 @@ export class PetService {
     }
 
     const updatePetData: DeepPartial<Pet> = {
-      birthday: new Date(data.birthday),
+      birthday: new Date(data.birthday * 1000),
       name: data.name,
-      nickName: data.nickName,
+      nickname: data.nickname,
       gender: data.gender,
       bio: data.bio,
       favorite: data.favorite,
@@ -70,7 +72,7 @@ export class PetService {
       eye: data.eye,
       hair: data.hair,
       petColorId: data.petColorId,
-      petSpecialTypeId: data.petSpecialTypeId,
+      petSpecialTypeId: data.petSpecialTypeId
     };
     const pet = await this.PetHelper.update(petId, updatePetData);
     return pet;
@@ -83,7 +85,17 @@ export class PetService {
       take,
       skip,
       order,
-      relations: { petColor: true, petSpecialType: true },
+      relations: { petColor: true, petSpecialType: true }
+    });
+  };
+
+  public getListPets = async (data: PaginateOptionsDto) => {
+    const { take, skip, order, ...options } = getDefaultQuery(data);
+    return await this.PetHelper.find({
+      take,
+      skip,
+      order,
+      relations: { petColor: true, petSpecialType: true }
     });
   };
 
@@ -92,5 +104,28 @@ export class PetService {
       (await this.PetHelper.findOne({ where: { id: petId }, relations: { petColor: true, petSpecialType: true } })) ||
       null
     );
+  };
+
+  public updateAvatar = async (acc: Account, petId: number, fileAvatar: Express.Multer.File) => {
+    let pet = await this.PetHelper.findByAccAndId(acc.id, petId);
+    console.log(pet);
+    if (!pet) {
+      FileUtils.removeFile(fileAvatar.path);
+      throw new AppException(ERROR_CODE.PET_WRONG_ACCOUNT);
+    }
+    if (pet.avatar) FileUtils.removeFile(`${UPLOAD.dirPetAvatar}/${pet.avatar}`);
+    pet = await this.PetHelper.update(petId, { avatar: fileAvatar.filename });
+    return pet;
+  };
+
+  public updateCover = async (acc: Account, petId: number, fileCover: Express.Multer.File) => {
+    let pet = await this.PetHelper.findByAccAndId(acc.id, petId);
+    if (!pet) {
+      FileUtils.removeFile(fileCover.path);
+      throw new AppException(ERROR_CODE.PET_WRONG_ACCOUNT);
+    }
+    if (pet.cover) FileUtils.removeFile(`${UPLOAD.dirPetCover}/${pet.cover}`);
+    pet = await this.PetHelper.update(petId, { cover: fileCover.filename });
+    return pet;
   };
 }

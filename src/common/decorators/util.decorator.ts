@@ -16,8 +16,8 @@ export function IsLargeThan<T>(property: keyof T, validationOptions?: Validation
         defaultMessage(args: ValidationArguments) {
           const [constraintProperty]: (() => any)[] = args.constraints;
           return `${args.property} must be large than ${constraintProperty}`;
-        },
-      },
+        }
+      }
     });
   };
 }
@@ -38,8 +38,8 @@ export function IsArrayEqualLength<T>(property: keyof T, validationOptions?: Val
         defaultMessage(args: ValidationArguments) {
           const [constraintProperty]: (() => any)[] = args.constraints;
           return `${args.property} must be equal with length of ${constraintProperty}`;
-        },
-      },
+        }
+      }
     });
   };
 }

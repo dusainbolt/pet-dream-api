@@ -7,14 +7,14 @@ import { PetSpecialType } from './pet-special-type.entity';
 
 export enum PetGender {
   MALE = 'male',
-  FEMALE = 'female',
+  FEMALE = 'female'
 }
 
 export enum PetTail {
   NONE = 'none',
   MAU = 'mau',
   COC = 'coc',
-  DAI = 'dai',
+  DAI = 'dai'
 }
 
 export enum PetEye {
@@ -24,19 +24,19 @@ export enum PetEye {
   BLUE = 'blue',
   ORANGE = 'orange_copper',
   ODD_COLORED = 'odd_colored',
-  DICHROIC = 'dichroic',
+  DICHROIC = 'dichroic'
 }
 
 export enum PetEar {
   THANG = 'thang',
-  CUP = 'cup',
+  CUP = 'cup'
 }
 
 export enum PetHair {
   DAI = 'dai',
   NGAN = 'ngan',
   BRUSH = 'brush',
-  THANG = 'thang',
+  THANG = 'thang'
 }
 
 @Entity(ENTITY_NAME.PET)
@@ -45,7 +45,7 @@ export class Pet extends AbstractEntity {
   name: string;
 
   @Column({ name: 'nick_name', type: 'varchar', default: null })
-  nickName: string;
+  nickname: string;
 
   @Column({ name: 'bio', type: 'varchar', default: null })
   bio: string;
@@ -58,6 +58,9 @@ export class Pet extends AbstractEntity {
 
   @Column({ name: 'avatar', type: 'varchar', default: null })
   avatar: string;
+
+  @Column({ name: 'cover', type: 'varchar', default: null })
+  cover: string;
 
   @Column({ name: 'gender', type: 'enum', enum: Object.values(PetGender), default: null })
   gender: PetGender;

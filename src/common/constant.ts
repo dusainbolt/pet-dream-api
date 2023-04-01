@@ -7,13 +7,13 @@ const commonConstant = {
   SPACE: ' ',
   EMPTY: '',
   MAXIMUM_STEP: 100000,
-  MINIMUM_STEP: 0,
+  MINIMUM_STEP: 0
 };
 
 export default commonConstant;
 
 export const REGEX = {
-  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$/,
+  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$/
 };
 
 export const PAGINATION = {
@@ -21,7 +21,7 @@ export const PAGINATION = {
   PAGE_DEFAULT: 25,
   SIZE_MAX: 100,
   PAGE_MAX: 100,
-  MIN_DATE: '2022-01-01',
+  MIN_DATE: '2022-01-01'
 };
 
 export const ENTITY_NAME = {
@@ -33,23 +33,35 @@ export const ENTITY_NAME = {
   LOG: 'logs',
   PET: 'pets',
   PET_COLOR: 'pet-colors',
-  PET_SPECIAL_TYPE: 'pet-special-types',
+  PET_SPECIAL_TYPE: 'pet-special-types'
 };
 
 export const DATE_FORMAT = {
   MIN_DATE: '1970-01-01T00:00:00.000Z',
   TIME_FORMAT: 'yyyy-MM-dd HH:mm:ss:SSS',
-  TIME_FORMAT_SHORT: 'yyyyMMdd',
+  TIME_FORMAT_SHORT: 'yyyyMMdd'
 };
 
 export const QuerySort = {
   ASC: 1,
-  DESC: -1,
+  DESC: -1
 };
 
 export const PATH_EXCLUDE = {
   ACTIVE: '/v1/auth/active-code',
-  SIGN_OUT: '/v1/auth/sign-out',
+  SIGN_OUT: '/v1/auth/sign-out'
 };
 
 export const ADMIN_ID = 1;
+
+export const REGX = {
+  imageType: 'image/png'
+};
+
+export const UPLOAD = {
+  maxFileAvatarSize: 5, //MB
+
+  // DIR
+  dirPetAvatar: `public/images/pet-avatars`,
+  dirPetCover: `public/images/pet-covers`
+};

@@ -33,3 +33,5 @@ lerna-debug.log*
 terraform
 
 dump.rdb
+
+/public/*

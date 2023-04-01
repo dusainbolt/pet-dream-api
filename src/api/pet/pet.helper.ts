@@ -18,4 +18,8 @@ export class PetHelper extends BaseRepository<Pet> {
   async findByAccAndName(accountId: any, name: string): Promise<Pet | null> {
     return await this.findOneBy({ accountId, name });
   }
+
+  async findByAccAndId(accountId: any, id: number): Promise<Pet | null> {
+    return await this.findOneBy({ accountId, id });
+  }
 }

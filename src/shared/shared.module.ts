@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-redis-store';
 import config, { configuration } from 'src/configs';
 import { TypeOrmConfigService } from 'src/configs/database';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Global()
 @Module({
@@ -13,20 +15,20 @@ import { TypeOrmConfigService } from 'src/configs/database';
       encoding: 'utf-8',
       envFilePath: [
         process.env.NODE_ENV && process.env.NODE_ENV !== 'default' ? `.env.${process.env.NODE_ENV}` : `.env`,
-        `.env`,
+        `.env`
       ],
-      load: [configuration],
+      load: [configuration]
     }),
 
     TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
+      useClass: TypeOrmConfigService
     }),
 
     CacheModule.register({
       isGlobal: true,
       store: redisStore,
       host: 'localhost',
-      port: 6379,
+      port: 6379
       // ttl: 600,
     }),
 
@@ -34,8 +36,12 @@ import { TypeOrmConfigService } from 'src/configs/database';
       isGlobal: true,
       store: redisStore,
       host: config.redis.host,
-      port: config.redis.port,
+      port: config.redis.port
     }),
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'public')
+    })
 
     // LoggerModule.forRoot({
     //   pinoHttp: {
@@ -58,6 +64,6 @@ import { TypeOrmConfigService } from 'src/configs/database';
     //     { method: RequestMethod.ALL, path: '/api-docs' },
     //   ],
     // }),
-  ],
+  ]
 })
 export class SharedModule {}

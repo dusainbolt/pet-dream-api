@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsSwaggerEnum, IsSwaggerNumber, IsSwaggerString } from 'src/common/decorators';
 import { PetEar, PetEye, PetGender, PetHair, PetTail } from 'src/entities/pet.entity';
 
@@ -6,7 +7,7 @@ export class PetCreateDto {
   name: string;
 
   @IsSwaggerString({ default: 'Đẹt Đần' })
-  nickName: string;
+  nickname: string;
 
   @IsSwaggerNumber({ default: 1678505251 })
   birthday: number;
@@ -42,4 +43,14 @@ export class PetUpdateDto extends PetCreateDto {
 
   @IsSwaggerNumber({ default: 1 })
   petSpecialTypeId: number;
+}
+
+export class PetUpdateAvatarDto {
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
+  avatar: Express.Multer.File;
+}
+
+export class PetUpdateCoverDto {
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
+  cover: Express.Multer.File;
 }
